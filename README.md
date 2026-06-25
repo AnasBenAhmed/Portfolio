@@ -8,7 +8,7 @@
 
 <br/>
 
-[![Portfolio](https://img.shields.io/badge/annas.dev-E11B22?style=for-the-badge&logoColor=white&logo=safari)](https://annas.dev)&nbsp;
+[![Portfolio](https://img.shields.io/badge/annas.host-E11B22?style=for-the-badge&logoColor=white&logo=safari)](https://annas.host)&nbsp;
 [![GitHub](https://img.shields.io/badge/AnasBenAhmed-0D0D0D?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AnasBenAhmed)&nbsp;
 [![Email](https://img.shields.io/badge/anasbenahmed%40gmail.com-E0A82E?style=for-the-badge&logo=gmail&logoColor=black)](mailto:anasbenahmed@gmail.com)
 
