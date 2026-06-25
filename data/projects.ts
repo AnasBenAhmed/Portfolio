@@ -51,7 +51,6 @@ export const projects: Project[] = [
       'Clean, conversion-focused design',
     ],
     accentColor: '#E0A82E',
-    github: 'https://github.com/AnasBenAhmed/ecommerce',
   },
   {
     slug: 'currency-converter',
