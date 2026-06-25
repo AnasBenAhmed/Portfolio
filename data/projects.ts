@@ -87,7 +87,6 @@ export const projects: Project[] = [
       'Move history and undo support',
     ],
     accentColor: '#E0A82E',
-    github: 'https://github.com/AnasBenAhmed/chess-ai',
   },
 ]
 
