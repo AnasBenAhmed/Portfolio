@@ -17,7 +17,6 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
-  const isHome = pathname === '/'
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,12 +34,8 @@ export default function Navbar() {
     )
   }, [])
 
-  const handleNavClick = (e: React.MouseEvent, href: string) => {
+  const handleNavClick = () => {
     setMenuOpen(false)
-    if (isHome && href.startsWith('/#')) {
-      // Prevent Next.js Link from re-navigating; SmoothScroll's document handler takes over
-      e.preventDefault()
-    }
   }
 
   return (
@@ -60,7 +55,7 @@ export default function Navbar() {
             className="group flex items-center gap-1"
             onClick={(e) => {
               setMenuOpen(false)
-              if (isHome) {
+              if (pathname === '/') {
                 e.preventDefault()
                 window.dispatchEvent(new CustomEvent('lenis-scroll-top'))
               }
@@ -78,7 +73,7 @@ export default function Navbar() {
               <li key={label}>
                 <Link
                   href={href}
-                  onClick={(e) => handleNavClick(e, href)}
+                  onClick={handleNavClick}
                   className="group relative font-space text-sm font-medium tracking-widest text-white/70 uppercase transition-colors duration-200 hover:text-white"
                 >
                   {label}
@@ -89,7 +84,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/#contact"
-                onClick={(e) => handleNavClick(e, '/#contact')}
+                onClick={handleNavClick}
                 className="rounded-none border border-crimson px-5 py-2 font-space text-sm font-medium uppercase tracking-widest text-crimson transition-all duration-300 hover:bg-crimson hover:text-white"
               >
                 Hire Me
@@ -133,7 +128,7 @@ export default function Navbar() {
             <li key={label}>
               <Link
                 href={href}
-                onClick={(e) => handleNavClick(e, href)}
+                onClick={handleNavClick}
                 className="font-bebas text-5xl tracking-widest text-white/80 transition-colors duration-200 hover:text-crimson"
               >
                 {label}
@@ -143,7 +138,7 @@ export default function Navbar() {
           <li>
             <Link
               href="/#contact"
-              onClick={(e) => handleNavClick(e, '/#contact')}
+              onClick={handleNavClick}
               className="mt-4 border border-crimson px-8 py-3 font-bebas text-3xl tracking-widest text-crimson hover:bg-crimson hover:text-white transition-all duration-300"
             >
               Hire Me

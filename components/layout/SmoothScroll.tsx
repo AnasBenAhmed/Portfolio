@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -9,6 +9,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null)
   const pathname = usePathname()
+  const router = useRouter()
+  const pendingHashRef = useRef<string | null>(null)
+  const pathnameRef = useRef(pathname)
+
+  // Keep ref in sync with React router — used inside the click closure
+  useEffect(() => {
+    pathnameRef.current = pathname
+  }, [pathname])
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
@@ -25,7 +33,8 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     gsap.ticker.add(tick)
     gsap.ticker.lagSmoothing(0)
 
-    // Intercept hash anchor clicks and route them through Lenis
+    // Capture phase fires BEFORE React/Next.js processes Link clicks, so
+    // e.preventDefault() here stops Next.js from navigating to /#hash URLs.
     const onAnchorClick = (e: MouseEvent) => {
       const anchor = (e.target as HTMLElement).closest('a') as HTMLAnchorElement | null
       if (!anchor) return
@@ -35,44 +44,53 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       let hash: string | null = null
       if (href.startsWith('#')) {
         hash = href
-      } else if (href.startsWith('/#') && window.location.pathname === '/') {
-        hash = href.slice(1) // strip leading /
+      } else if (href.startsWith('/#')) {
+        hash = href.slice(1) // '#section'
       }
 
       if (!hash) return
+
+      if (pathnameRef.current !== '/') {
+        // Cross-page: take over navigation — go to home, scroll on arrival
+        e.preventDefault()
+        pendingHashRef.current = hash
+        router.push('/')
+        return
+      }
+
+      // On home: scroll directly, block any browser/Next.js navigation
       const target = document.querySelector(hash) as HTMLElement | null
       if (!target) return
       e.preventDefault()
-      lenis.scrollTo(target, { duration: 1.3 })
+      lenisRef.current?.scrollTo(target, { duration: 1.3 })
     }
 
-    const onScrollTop = () => lenis.scrollTo(0, { duration: 1.3 })
+    const onScrollTop = () => lenisRef.current?.scrollTo(0, { duration: 1.3 })
 
-    document.addEventListener('click', onAnchorClick)
+    document.addEventListener('click', onAnchorClick, { capture: true })
     window.addEventListener('lenis-scroll-top', onScrollTop)
 
     return () => {
-      document.removeEventListener('click', onAnchorClick)
+      document.removeEventListener('click', onAnchorClick, { capture: true })
       window.removeEventListener('lenis-scroll-top', onScrollTop)
       lenis.destroy()
       gsap.ticker.remove(tick)
       lenisRef.current = null
     }
-  }, [])
+  }, [router])
 
-  // Handle scroll position on every route change
+  // On route change: scroll to pending hash (cross-page nav) or to top
   useEffect(() => {
-    // Defer one frame so the URL (including hash) is fully committed
     const id = requestAnimationFrame(() => {
-      const hash = window.location.hash
+      const hash = pendingHashRef.current || window.location.hash
+      pendingHashRef.current = null
+
       if (hash) {
-        // Lenis handles the scroll to the anchor element
         const target = document.querySelector(hash) as HTMLElement | null
         if (target && lenisRef.current) {
           lenisRef.current.scrollTo(target, { immediate: true })
         }
       } else {
-        // No hash — go to top
         if (lenisRef.current) {
           lenisRef.current.scrollTo(0, { immediate: true })
         } else {
