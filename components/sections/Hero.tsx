@@ -1,204 +1,223 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import dynamic from 'next/dynamic'
-import type { ISourceOptions } from '@tsparticles/engine'
 
-const ParticlesWrapper = dynamic(() => import('@/components/ui/ParticlesWrapper'), { ssr: false })
-
-const TERMINAL_LINES = [
-  '> initializing system...',
-  '> loading: Anas Ben Ahmed',
-  '> roles: Designer · Developer · Engineer',
-  '> status: ready_',
-]
-
-const PARTICLE_OPTIONS: ISourceOptions = {
-  fullScreen: { enable: false },
-  background: { color: { value: 'transparent' } },
-  fpsLimit: 60,
-  particles: {
-    number: { value: 55, density: { enable: true } },
-    color: { value: ['#E11B22', '#E0A82E', '#ffffff'] },
-    shape: { type: 'circle' },
-    opacity: {
-      value: { min: 0.04, max: 0.2 },
-      animation: { enable: true, speed: 0.4, sync: false },
-    },
-    size: { value: { min: 1, max: 2.5 } },
-    move: {
-      enable: true,
-      speed: 0.35,
-      direction: 'none',
-      random: true,
-      straight: false,
-      outModes: { default: 'out' },
-    },
-    links: {
-      enable: true,
-      distance: 150,
-      color: '#ffffff',
-      opacity: 0.035,
-      width: 1,
-    },
-  },
-  detectRetina: true,
-}
+const LINE1 = 'ANAS'
+const LINE2_WHITE = 'BEN'
+const LINE2_GRADIENT = 'AHMED'
 
 export default function Hero() {
-  const terminalRef = useRef<HTMLDivElement>(null)
-  const gradientRef = useRef<HTMLDivElement>(null)
-  const contentRef = useRef<HTMLDivElement>(null)
-  const nameRef = useRef<HTMLHeadingElement>(null)
-  const subtitleRef = useRef<HTMLParagraphElement>(null)
+  const orb1Ref = useRef<HTMLDivElement>(null)
+  const orb2Ref = useRef<HTMLDivElement>(null)
+  const orb3Ref = useRef<HTMLDivElement>(null)
+  const lineRef = useRef<HTMLDivElement>(null)
+  const taglineRef = useRef<HTMLParagraphElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
-  const lineRefs = useRef<(HTMLSpanElement | null)[]>([])
-  const cursorRef = useRef<HTMLSpanElement>(null)
-  const [showParticles, setShowParticles] = useState(false)
+  const line1Refs = useRef<(HTMLSpanElement | null)[]>([])
+  const line2WhiteRefs = useRef<(HTMLSpanElement | null)[]>([])
+  const line2GradRefs = useRef<(HTMLSpanElement | null)[]>([])
 
   useEffect(() => {
-    const tl = gsap.timeline()
+    /* ── Mouse parallax on orbs ─────────────────────────────── */
+    const onMouseMove = (e: MouseEvent) => {
+      const mx = (e.clientX / window.innerWidth - 0.5) * 2
+      const my = (e.clientY / window.innerHeight - 0.5) * 2
+      gsap.to(orb1Ref.current, { x: mx * 35, y: my * 25, duration: 2.5, ease: 'power2.out' })
+      gsap.to(orb2Ref.current, { x: -mx * 25, y: -my * 20, duration: 3, ease: 'power2.out' })
+      gsap.to(orb3Ref.current, { x: mx * 15, y: -my * 30, duration: 2, ease: 'power2.out' })
+    }
+    window.addEventListener('mousemove', onMouseMove)
 
-    gsap.set([gradientRef.current, contentRef.current], { opacity: 0 })
-    gsap.set([nameRef.current, subtitleRef.current, ctaRef.current, scrollRef.current], {
-      opacity: 0,
-      y: 40,
-    })
+    /* ── Entrance animation ──────────────────────────────────── */
+    const l1 = line1Refs.current.filter(Boolean) as HTMLSpanElement[]
+    const l2w = line2WhiteRefs.current.filter(Boolean) as HTMLSpanElement[]
+    const l2g = line2GradRefs.current.filter(Boolean) as HTMLSpanElement[]
 
-    TERMINAL_LINES.forEach((line, i) => {
-      const el = lineRefs.current[i]
-      if (!el) return
-      const chars = { n: 0 }
-      tl.to(
-        chars,
-        {
-          n: line.length,
-          duration: line.length * 0.032,
-          ease: 'none',
-          onUpdate() {
-            el.textContent = line.slice(0, Math.round(chars.n))
-          },
-        },
-        i === 0 ? '+=0.5' : '+=0.35'
-      )
-    })
+    gsap.set([...l1, ...l2w, ...l2g], { yPercent: 110 })
+    gsap.set([lineRef.current, taglineRef.current, ctaRef.current, scrollRef.current], { opacity: 0 })
+    gsap.set(lineRef.current, { scaleX: 0, transformOrigin: 'left center' })
+    gsap.set(taglineRef.current, { y: 16 })
+    gsap.set(ctaRef.current, { y: 20 })
 
-    tl.to(cursorRef.current, { opacity: 0, duration: 0 }, '+=0.4')
-    tl.to(terminalRef.current, { x: 8, duration: 0.04, yoyo: true, repeat: 7, ease: 'none' }, '+=0.15')
-    tl.to(terminalRef.current, { opacity: 0, y: -24, duration: 0.35, ease: 'power2.in' })
-    tl.to(
-      gradientRef.current,
-      { opacity: 1, duration: 0.7, ease: 'power2.out', onComplete: () => setShowParticles(true) },
-      '-=0.1'
-    )
-    tl.to(contentRef.current, { opacity: 1, duration: 0 })
-    tl.to(nameRef.current, { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out' }, '-=0.1')
-    tl.to(subtitleRef.current, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.35')
-    tl.to(ctaRef.current, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, '-=0.25')
-    tl.to(scrollRef.current, { opacity: 1, y: 0, duration: 0.4 }, '-=0.15')
+    const tl = gsap.timeline({ delay: 0.2 })
 
-    return () => { tl.kill() }
+    // Line 1: ANAS — letters rise
+    tl.to(l1, { yPercent: 0, duration: 1, stagger: 0.06, ease: 'power4.out' })
+
+    // Line 2: BEN AHMED — letters rise, slightly overlapping
+    tl.to([...l2w, ...l2g], { yPercent: 0, duration: 1, stagger: 0.05, ease: 'power4.out' }, '-=0.7')
+
+    // Crimson→gold line extends
+    tl.to(lineRef.current, { scaleX: 1, opacity: 1, duration: 0.9, ease: 'expo.inOut' }, '-=0.3')
+
+    // Tagline
+    tl.to(taglineRef.current, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.5')
+
+    // CTA
+    tl.to(ctaRef.current, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.4')
+
+    // Scroll indicator
+    tl.to(scrollRef.current, { opacity: 1, duration: 0.5 }, '-=0.2')
+
+    return () => {
+      window.removeEventListener('mousemove', onMouseMove)
+      tl.kill()
+    }
   }, [])
 
   return (
     <section
       id="hero"
-      className="relative flex h-screen min-h-[600px] items-center justify-center overflow-hidden bg-bg"
+      className="relative flex h-screen min-h-[640px] items-center justify-center overflow-hidden bg-bg"
     >
-      {/* Gradient background */}
+      {/* ── Animated gradient orbs ─────────────────────────────── */}
       <div
-        ref={gradientRef}
-        className="absolute inset-0 opacity-0"
+        ref={orb1Ref}
+        className="pointer-events-none absolute"
         style={{
-          background:
-            'radial-gradient(ellipse 80% 80% at 20% 40%, rgba(225,27,34,0.18) 0%, transparent 60%), radial-gradient(ellipse 60% 60% at 80% 70%, rgba(224,168,46,0.12) 0%, transparent 55%), #0D0D0D',
+          top: '-20%', left: '-15%',
+          width: '65vw', height: '65vw',
+          background: 'radial-gradient(circle at 40% 40%, rgba(225,27,34,0.22) 0%, transparent 65%)',
+          filter: 'blur(70px)',
+          willChange: 'transform',
+        }}
+      />
+      <div
+        ref={orb2Ref}
+        className="pointer-events-none absolute"
+        style={{
+          bottom: '-20%', right: '-15%',
+          width: '55vw', height: '55vw',
+          background: 'radial-gradient(circle at 60% 60%, rgba(224,168,46,0.18) 0%, transparent 65%)',
+          filter: 'blur(70px)',
+          willChange: 'transform',
+        }}
+      />
+      <div
+        ref={orb3Ref}
+        className="pointer-events-none absolute"
+        style={{
+          top: '30%', right: '10%',
+          width: '30vw', height: '30vw',
+          background: 'radial-gradient(circle, rgba(225,27,34,0.10) 0%, transparent 70%)',
+          filter: 'blur(50px)',
+          willChange: 'transform',
         }}
       />
 
-      {/* Particles */}
-      {showParticles && (
-        <div className="absolute inset-0 z-10">
-          <ParticlesWrapper id="hero-particles" options={PARTICLE_OPTIONS} />
-        </div>
-      )}
-
-      {/* Subtle grid */}
+      {/* ── Subtle grid ────────────────────────────────────────── */}
       <div
-        className="absolute inset-0 z-[11] opacity-[0.025]"
+        className="pointer-events-none absolute inset-0 opacity-[0.022]"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
+            'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)',
+          backgroundSize: '90px 90px',
         }}
       />
 
-      {/* Terminal */}
-      <div
-        ref={terminalRef}
-        className="absolute inset-0 z-20 flex flex-col justify-center px-8 md:px-20 lg:px-32"
-      >
-        <div className="font-fira text-base md:text-xl lg:text-2xl leading-relaxed space-y-3">
-          {TERMINAL_LINES.map((_, i) => (
-            <div key={i} className="flex items-center text-terminal">
-              <span ref={(el) => { lineRefs.current[i] = el }} className="whitespace-pre" />
-              {i === TERMINAL_LINES.length - 1 && (
-                <span ref={cursorRef} className="ml-0.5 inline-block h-5 w-2 bg-terminal animate-blink" />
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* ── Main content ───────────────────────────────────────── */}
+      <div className="relative z-10 w-full select-none px-6 text-center md:px-10">
 
-      {/* Hero content */}
-      <div ref={contentRef} className="relative z-30 w-full px-6 text-center md:px-10 opacity-0">
-        <div className="overflow-hidden">
-          <h1
-            ref={nameRef}
-            className="font-bebas leading-none tracking-wider text-white"
-            style={{ fontSize: 'clamp(4rem, 12vw, 11rem)' }}
+        {/* Name line 1: ANAS */}
+        <div aria-hidden className="overflow-visible leading-none">
+          <p
+            className="inline-block font-bebas leading-[0.85] tracking-[0.03em] text-white"
+            style={{ fontSize: 'clamp(5.5rem, 18vw, 18rem)' }}
           >
-            ANAS
-            <br />
-            <span className="gradient-text">BEN AHMED</span>
-          </h1>
+            {LINE1.split('').map((char, i) => (
+              <span key={i} className="letter-wrap">
+                <span ref={(el) => { line1Refs.current[i] = el }} className="inline-block">
+                  {char}
+                </span>
+              </span>
+            ))}
+          </p>
         </div>
 
+        {/* Name line 2: BEN AHMED */}
+        <div aria-hidden className="overflow-visible leading-none -mt-2 md:-mt-4 lg:-mt-6">
+          <p
+            className="inline-block font-bebas leading-[0.85] tracking-[0.03em]"
+            style={{ fontSize: 'clamp(5.5rem, 18vw, 18rem)' }}
+          >
+            {LINE2_WHITE.split('').map((char, i) => (
+              <span key={`w${i}`} className="letter-wrap">
+                <span ref={(el) => { line2WhiteRefs.current[i] = el }} className="inline-block text-white">
+                  {char}
+                </span>
+              </span>
+            ))}
+            {/* Non-breaking space between BEN and AHMED */}
+            <span className="letter-wrap">
+              <span ref={(el) => { line2WhiteRefs.current[LINE2_WHITE.length] = el }} className="inline-block text-white">
+                &nbsp;
+              </span>
+            </span>
+            {LINE2_GRADIENT.split('').map((char, i) => (
+              <span key={`g${i}`} className="letter-wrap">
+                <span
+                  ref={(el) => { line2GradRefs.current[i] = el }}
+                  className="inline-block gradient-text"
+                >
+                  {char}
+                </span>
+              </span>
+            ))}
+          </p>
+        </div>
+
+        {/* Decorative line */}
+        <div className="flex items-center justify-center mt-6 md:mt-8">
+          <div
+            ref={lineRef}
+            style={{
+              width: 'min(520px, 75vw)',
+              height: '1px',
+              background: 'linear-gradient(90deg, transparent 0%, #E11B22 30%, #E0A82E 70%, transparent 100%)',
+            }}
+          />
+        </div>
+
+        {/* Tagline */}
         <p
-          ref={subtitleRef}
-          className="mt-4 font-space text-sm font-light uppercase tracking-[0.35em] text-white/60 md:text-base"
+          ref={taglineRef}
+          className="mt-5 font-space text-[10px] font-light uppercase tracking-[0.45em] text-white/40 md:text-xs"
         >
-          Graphic Designer&nbsp;&nbsp;·&nbsp;&nbsp;Developer&nbsp;&nbsp;·&nbsp;&nbsp;Engineer
+          Graphic Designer&nbsp;&nbsp;·&nbsp;&nbsp;Web &amp; Mobile Developer&nbsp;&nbsp;·&nbsp;&nbsp;Software Engineer
         </p>
 
-        <div ref={ctaRef} className="mt-8 flex flex-wrap items-center justify-center gap-4">
+        {/* CTA buttons */}
+        <div ref={ctaRef} className="mt-9 flex flex-wrap items-center justify-center gap-4">
           <a
             href="#projects"
-            className="group relative overflow-hidden border border-crimson px-8 py-3 font-space text-sm uppercase tracking-widest text-crimson transition-colors duration-300 hover:text-white"
+            className="group relative overflow-hidden border border-crimson px-9 py-3.5 font-space text-[11px] uppercase tracking-[0.25em] text-crimson transition-colors duration-300 hover:text-white"
           >
-            <span className="absolute inset-0 origin-left scale-x-0 bg-crimson transition-transform duration-300 group-hover:scale-x-100" />
+            <span className="absolute inset-0 origin-left scale-x-0 bg-crimson transition-transform duration-350 group-hover:scale-x-100" />
             <span className="relative">View Work</span>
           </a>
           <a
             href="#contact"
-            className="border border-white/20 px-8 py-3 font-space text-sm uppercase tracking-widest text-white/70 transition-all duration-300 hover:border-white/50 hover:text-white"
+            className="border border-white/12 px-9 py-3.5 font-space text-[11px] uppercase tracking-[0.25em] text-white/40 transition-all duration-300 hover:border-white/35 hover:text-white/80"
           >
             Get in Touch
           </a>
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* ── Scroll indicator ───────────────────────────────────── */}
       <div
         ref={scrollRef}
-        className="absolute bottom-8 left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-3 opacity-0"
+        className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 flex flex-col items-center gap-3 opacity-0"
       >
-        <span className="font-fira text-[10px] uppercase tracking-[0.3em] text-white/30">Scroll</span>
-        <div className="relative h-12 w-px overflow-hidden bg-white/10">
+        <span className="font-fira text-[9px] uppercase tracking-[0.4em] text-white/20">
+          Scroll
+        </span>
+        <div className="relative h-14 w-px overflow-hidden" style={{ background: 'rgba(255,255,255,0.06)' }}>
           <div
-            className="absolute top-0 left-0 w-full bg-gradient-to-b from-crimson to-gold"
-            style={{ height: '100%', animation: 'scroll-indicator 2s ease-in-out infinite' }}
+            className="absolute inset-x-0 top-0 bg-gradient-to-b from-crimson to-gold"
+            style={{ height: '100%', animation: 'scroll-indicator 2.2s ease-in-out infinite' }}
           />
         </div>
       </div>
