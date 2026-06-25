@@ -90,7 +90,7 @@ export default function Skills() {
     <section
       ref={sectionRef}
       id="skills"
-      className="relative bg-surface py-28 md:py-36"
+      className="relative bg-bg py-28 md:py-36"
     >
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />

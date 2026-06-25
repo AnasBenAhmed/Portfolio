@@ -8,7 +8,7 @@ import SectionTitle from '@/components/ui/SectionTitle'
 const STATS = [
   { value: 4,   suffix: '',  label: 'Featured Projects' },
   { value: 3,   suffix: '+', label: 'Platforms' },
-  { value: 5,   suffix: '+', label: 'Years Learning' },
+  { value: 13,  suffix: '+', label: 'Years of Experience' },
   { value: 100, suffix: '%', label: 'Design Passion' },
 ]
 
@@ -86,11 +86,7 @@ export default function About() {
       className="relative overflow-hidden bg-bg py-28 md:py-36"
     >
       {/* Decorative background word */}
-      <div
-        className="pointer-events-none absolute -right-10 top-1/2 -translate-y-1/2 select-none font-bebas leading-none text-white/[0.025]"
-        style={{ fontSize: 'clamp(8rem, 22vw, 22rem)' }}
-        aria-hidden
-      >
+      <div className="absolute right-6 top-20 font-bebas text-[180px] leading-none text-white/[0.02] select-none pointer-events-none md:right-16" aria-hidden>
         ABOUT
       </div>
 

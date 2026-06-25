@@ -5,6 +5,7 @@ import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import CustomCursor from '@/components/layout/CustomCursor'
 import SmoothScroll from '@/components/layout/SmoothScroll'
+import Preloader from '@/components/ui/Preloader'
 
 const bebasNeue = Bebas_Neue({
   weight: '400',
@@ -30,11 +31,11 @@ export const metadata: Metadata = {
   description:
     'Multidisciplinary developer and designer building for web, mobile, and desktop. Portfolio of Anas Ben Ahmed.',
   keywords: ['designer', 'developer', 'Next.js', 'React', 'portfolio', 'Tunisia'],
-  authors: [{ name: 'Anas Ben Ahmed', url: 'https://annas.host' }],
+  authors: [{ name: 'Anas Ben Ahmed', url: 'https://annas.dev' }],
   openGraph: {
     title: 'Anas Ben Ahmed — Designer & Developer',
     description: 'Graphic Designer · Web & Mobile Developer · Software Engineer',
-    url: 'https://annas.host',
+    url: 'https://annas.dev',
     siteName: 'Anas Ben Ahmed',
     type: 'website',
   },
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${bebasNeue.variable} ${spaceGrotesk.variable} ${firaCode.variable}`}
     >
       <body className="bg-bg text-white antialiased">
+        <Preloader />
         <SmoothScroll>
           <CustomCursor />
           <Navbar />

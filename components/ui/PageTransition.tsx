@@ -1,10 +1,12 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { usePathname } from 'next/navigation'
 import { gsap } from 'gsap'
 
 export default function PageTransition({ children }: { children: React.ReactNode }) {
   const overlayRef = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
 
   useEffect(() => {
     const overlay = overlayRef.current
@@ -16,12 +18,12 @@ export default function PageTransition({ children }: { children: React.ReactNode
       {
         scaleX: 0,
         transformOrigin: 'right center',
-        duration: 0.7,
+        duration: 0.75,
         ease: 'power3.inOut',
         delay: 0.05,
       }
     )
-  }, [])
+  }, [pathname])
 
   return (
     <div className="relative">

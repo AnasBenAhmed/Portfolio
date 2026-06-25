@@ -35,10 +35,11 @@ export default function Navbar() {
     )
   }, [])
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = (e: React.MouseEvent, href: string) => {
     setMenuOpen(false)
-    if (!isHome && href.startsWith('/#')) {
-      window.location.href = href
+    if (isHome && href.startsWith('/#')) {
+      // Prevent Next.js Link from re-navigating; SmoothScroll's document handler takes over
+      e.preventDefault()
     }
   }
 
@@ -48,15 +49,25 @@ export default function Navbar() {
         ref={navRef}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? 'bg-bg/90 backdrop-blur-md border-b border-white/5'
+            ? 'bg-bg/90 backdrop-blur-md'
             : 'bg-transparent'
         }`}
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 md:px-10">
           {/* Logo */}
-          <Link href="/" className="group flex items-center gap-1" onClick={() => setMenuOpen(false)}>
+          <Link
+            href="/"
+            className="group flex items-center gap-1"
+            onClick={(e) => {
+              setMenuOpen(false)
+              if (isHome) {
+                e.preventDefault()
+                window.dispatchEvent(new CustomEvent('lenis-scroll-top'))
+              }
+            }}
+          >
             <span className="font-bebas text-2xl tracking-widest text-crimson transition-all duration-300 group-hover:text-gold">
-              ABN
+              ABA
             </span>
             <span className="ml-1 h-1.5 w-1.5 rounded-full bg-gold transition-all duration-300 group-hover:bg-crimson" />
           </Link>
@@ -67,7 +78,7 @@ export default function Navbar() {
               <li key={label}>
                 <Link
                   href={href}
-                  onClick={() => handleNavClick(href)}
+                  onClick={(e) => handleNavClick(e, href)}
                   className="group relative font-space text-sm font-medium tracking-widest text-white/70 uppercase transition-colors duration-200 hover:text-white"
                 >
                   {label}
@@ -78,7 +89,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/#contact"
-                onClick={() => handleNavClick('/#contact')}
+                onClick={(e) => handleNavClick(e, '/#contact')}
                 className="rounded-none border border-crimson px-5 py-2 font-space text-sm font-medium uppercase tracking-widest text-crimson transition-all duration-300 hover:bg-crimson hover:text-white"
               >
                 Hire Me
@@ -122,7 +133,7 @@ export default function Navbar() {
             <li key={label}>
               <Link
                 href={href}
-                onClick={() => handleNavClick(href)}
+                onClick={(e) => handleNavClick(e, href)}
                 className="font-bebas text-5xl tracking-widest text-white/80 transition-colors duration-200 hover:text-crimson"
               >
                 {label}
@@ -132,7 +143,7 @@ export default function Navbar() {
           <li>
             <Link
               href="/#contact"
-              onClick={() => handleNavClick('/#contact')}
+              onClick={(e) => handleNavClick(e, '/#contact')}
               className="mt-4 border border-crimson px-8 py-3 font-bebas text-3xl tracking-widest text-crimson hover:bg-crimson hover:text-white transition-all duration-300"
             >
               Hire Me

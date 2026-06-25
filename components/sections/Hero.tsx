@@ -1,11 +1,27 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 
 const LINE1 = 'ANAS'
 const LINE2_WHITE = 'BEN'
 const LINE2_GRADIENT = 'AHMED'
+
+const CRIMSON = [225, 27, 34]
+const GOLD    = [224, 168, 46]
+
+function gradientSlice(i: number, total: number): React.CSSProperties {
+  const t0 = i / total
+  const t1 = (i + 1) / total
+  const c0 = CRIMSON.map((c, k) => Math.round(c + (GOLD[k] - c) * t0))
+  const c1 = CRIMSON.map((c, k) => Math.round(c + (GOLD[k] - c) * t1))
+  return {
+    background: `linear-gradient(90deg, rgb(${c0}), rgb(${c1}))`,
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundClip: 'text',
+  }
+}
 
 export default function Hero() {
   const orb1Ref = useRef<HTMLDivElement>(null)
@@ -15,6 +31,7 @@ export default function Hero() {
   const taglineRef = useRef<HTMLParagraphElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
+  const badgeRef = useRef<HTMLDivElement>(null)
   const line1Refs = useRef<(HTMLSpanElement | null)[]>([])
   const line2WhiteRefs = useRef<(HTMLSpanElement | null)[]>([])
   const line2GradRefs = useRef<(HTMLSpanElement | null)[]>([])
@@ -36,7 +53,8 @@ export default function Hero() {
     const l2g = line2GradRefs.current.filter(Boolean) as HTMLSpanElement[]
 
     gsap.set([...l1, ...l2w, ...l2g], { yPercent: 110 })
-    gsap.set([lineRef.current, taglineRef.current, ctaRef.current, scrollRef.current], { opacity: 0 })
+    gsap.set([lineRef.current, taglineRef.current, ctaRef.current, scrollRef.current, badgeRef.current], { opacity: 0 })
+    gsap.set(badgeRef.current, { y: 10 })
     gsap.set(lineRef.current, { scaleX: 0, transformOrigin: 'left center' })
     gsap.set(taglineRef.current, { y: 16 })
     gsap.set(ctaRef.current, { y: 20 })
@@ -49,17 +67,12 @@ export default function Hero() {
     // Line 2: BEN AHMED — letters rise, slightly overlapping
     tl.to([...l2w, ...l2g], { yPercent: 0, duration: 1, stagger: 0.05, ease: 'power4.out' }, '-=0.7')
 
-    // Crimson→gold line extends
-    tl.to(lineRef.current, { scaleX: 1, opacity: 1, duration: 0.9, ease: 'expo.inOut' }, '-=0.3')
-
-    // Tagline
-    tl.to(taglineRef.current, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.5')
-
-    // CTA
-    tl.to(ctaRef.current, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.4')
-
-    // Scroll indicator
-    tl.to(scrollRef.current, { opacity: 1, duration: 0.5 }, '-=0.2')
+    // Line, tagline, CTA use absolute positions — independent of name timing
+    tl.to(badgeRef.current,   { opacity: 1, y: 0,      duration: 0.45, ease: 'power2.out' }, 0.3)
+    tl.to(lineRef.current,    { scaleX: 1, opacity: 1, duration: 0.6, ease: 'expo.inOut'  }, 0.5)
+    tl.to(taglineRef.current, { opacity: 1, y: 0,      duration: 0.5, ease: 'power2.out'  }, 0.7)
+    tl.to(ctaRef.current,     { opacity: 1, y: 0,      duration: 0.5, ease: 'power2.out'  }, 0.9)
+    tl.to(scrollRef.current,  { opacity: 1,             duration: 0.4                      }, 1.1)
 
     return () => {
       window.removeEventListener('mousemove', onMouseMove)
@@ -117,8 +130,27 @@ export default function Hero() {
         }}
       />
 
+      {/* ── Grain texture ──────────────────────────────────────── */}
+      <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.09]" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <filter id="hero-grain">
+          <feTurbulence type="fractalNoise" baseFrequency="0.68" numOctaves="3" stitchTiles="stitch" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#hero-grain)" />
+      </svg>
+
       {/* ── Main content ───────────────────────────────────────── */}
       <div className="relative z-10 w-full select-none px-6 text-center md:px-10">
+
+        {/* Available for work badge */}
+        <div ref={badgeRef} className="mb-7 flex items-center justify-center gap-2.5">
+          <div className="relative flex h-2 w-2 shrink-0">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+          </div>
+          <span className="font-fira text-[9px] uppercase tracking-[0.4em] text-white/35">
+            Available for work
+          </span>
+        </div>
 
         {/* Name line 1: ANAS — gradient */}
         <div aria-hidden className="overflow-visible leading-none">
@@ -128,7 +160,7 @@ export default function Hero() {
           >
             {LINE1.split('').map((char, i) => (
               <span key={i} className="letter-wrap">
-                <span ref={(el) => { line1Refs.current[i] = el }} className="inline-block gradient-text">
+                <span ref={(el) => { line1Refs.current[i] = el }} className="inline-block" style={gradientSlice(i, LINE1.length)}>
                   {char}
                 </span>
               </span>
@@ -181,7 +213,7 @@ export default function Hero() {
           ref={taglineRef}
           className="mt-5 font-space text-[10px] font-light uppercase tracking-[0.45em] text-white/40 md:text-xs"
         >
-          Graphic Designer&nbsp;&nbsp;·&nbsp;&nbsp;Web &amp; Mobile Developer&nbsp;&nbsp;·&nbsp;&nbsp;Software Engineer
+          Graphic Designer&nbsp;&nbsp;·&nbsp;&nbsp;Full Stack Developer&nbsp;&nbsp;·&nbsp;&nbsp;Software Engineer
         </p>
 
         {/* CTA buttons */}

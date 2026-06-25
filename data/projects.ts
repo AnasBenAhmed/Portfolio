@@ -8,6 +8,7 @@ export interface Project {
   longDescription: string
   features: string[]
   accentColor: string
+  github?: string
 }
 
 export const projects: Project[] = [
@@ -31,6 +32,7 @@ export const projects: Project[] = [
       'Dark-only design with crimson / gold brand system',
     ],
     accentColor: '#E11B22',
+    github: 'https://github.com/AnasBenAhmed/portfolio',
   },
   {
     slug: 'ecommerce',
@@ -49,6 +51,7 @@ export const projects: Project[] = [
       'Clean, conversion-focused design',
     ],
     accentColor: '#E0A82E',
+    github: 'https://github.com/AnasBenAhmed/ecommerce',
   },
   {
     slug: 'currency-converter',
@@ -67,6 +70,7 @@ export const projects: Project[] = [
       'Single-screen UI optimized for speed',
     ],
     accentColor: '#E11B22',
+    github: 'https://github.com/AnasBenAhmed/currency-converter',
   },
   {
     slug: 'chess',
@@ -85,6 +89,7 @@ export const projects: Project[] = [
       'Move history and undo support',
     ],
     accentColor: '#E0A82E',
+    github: 'https://github.com/AnasBenAhmed/chess-ai',
   },
 ]
 

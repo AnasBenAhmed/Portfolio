@@ -88,8 +88,16 @@ body::after {
   mix-blend-mode: overlay;
 }
 
-/* Hide cursor */
-*, *::before, *::after { cursor: none !important; }
+/* Hide cursor — only on devices with a precise pointer (mouse), not on touch */
+@media (pointer: fine) {
+  *, *::before, *::after { cursor: none !important; }
+}
+
+/* On touch devices, hide mouse-only elements */
+@media (pointer: coarse) {
+  [data-arrow]  { display: none !important; }
+  [data-bg-num] { display: none !important; }
+}
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 3px; }
