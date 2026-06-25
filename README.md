@@ -2,7 +2,7 @@
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=E11B22&height=140&section=header&text=ABA·&fontSize=72&fontColor=ffffff&fontAlign=50&fontAlignY=55&animation=fadeIn" width="100%" />
 
-<img src="https://readme-typing-svg.demolab.com?font=Bebas+Neue&weight=400&size=52&duration=2800&pause=1400&color=FFFFFF&center=true&vCenter=true&width=700&height=70&lines=ANAS+BEN+AHMED" alt="Anas Ben Ahmed" />
+<img src="https://readme-typing-svg.demolab.com?font=Bebas+Neue&weight=400&size=52&duration=2800&pause=99999&color=FFFFFF&center=true&vCenter=true&width=700&height=70&lines=ANAS+BEN+AHMED&repeat=false" alt="Anas Ben Ahmed" />
 
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=13&duration=2000&pause=1200&color=E0A82E&center=true&vCenter=true&width=700&height=30&lines=Graphic+Designer+%C2%B7+Full+Stack+Developer+%C2%B7+Software+Engineer;Available+for+work" alt="Tagline" />
 
