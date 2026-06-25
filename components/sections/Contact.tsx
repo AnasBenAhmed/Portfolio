@@ -80,7 +80,7 @@ export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
   const [formState, setFormState] = useState<FormState>('idle')
-  const [fields, setFields] = useState({ name: '', email: '', message: '' })
+  const [fields, setFields] = useState({ from_name: '', from_email: '', message: '' })
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
@@ -117,7 +117,7 @@ export default function Contact() {
     try {
       await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current!, PUBLIC_KEY)
       setFormState('success')
-      setFields({ name: '', email: '', message: '' })
+      setFields({ from_name: '', from_email: '', message: '' })
     } catch {
       setFormState('error')
     }
@@ -212,20 +212,21 @@ export default function Contact() {
                 onSubmit={handleSubmit}
                 className="space-y-6"
               >
+                <input type="hidden" name="subject" value="New message from portfolio" />
                 <FloatingLabel
-                  id="name"
-                  name="name"
+                  id="from_name"
+                  name="from_name"
                   label="Your Name"
-                  value={fields.name}
+                  value={fields.from_name}
                   onChange={handleChange}
                   required
                 />
                 <FloatingLabel
-                  id="email"
-                  name="email"
+                  id="from_email"
+                  name="from_email"
                   label="Email Address"
                   type="email"
-                  value={fields.email}
+                  value={fields.from_email}
                   onChange={handleChange}
                   required
                 />
