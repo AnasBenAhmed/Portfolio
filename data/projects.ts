@@ -32,7 +32,7 @@ export const projects: Project[] = [
       'Dark-only design with crimson / gold brand system',
     ],
     accentColor: '#E11B22',
-    github: 'https://github.com/AnasBenAhmed/portfolio.git',
+    github: 'https://github.com/AnasBenAhmed/portfolio',
   },
   {
     slug: 'ecommerce',
