@@ -69,7 +69,6 @@ export const projects: Project[] = [
       'Single-screen UI optimized for speed',
     ],
     accentColor: '#E11B22',
-    github: 'https://github.com/AnasBenAhmed/currency-converter',
   },
   {
     slug: 'chess',
