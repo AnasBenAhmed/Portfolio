@@ -120,15 +120,15 @@ export default function Hero() {
       {/* ── Main content ───────────────────────────────────────── */}
       <div className="relative z-10 w-full select-none px-6 text-center md:px-10">
 
-        {/* Name line 1: ANAS */}
+        {/* Name line 1: ANAS — gradient */}
         <div aria-hidden className="overflow-visible leading-none">
           <p
-            className="inline-block font-bebas leading-[0.85] tracking-[0.03em] text-white"
+            className="inline-block font-bebas leading-[0.85] tracking-[0.03em]"
             style={{ fontSize: 'clamp(5.5rem, 18vw, 18rem)' }}
           >
             {LINE1.split('').map((char, i) => (
               <span key={i} className="letter-wrap">
-                <span ref={(el) => { line1Refs.current[i] = el }} className="inline-block">
+                <span ref={(el) => { line1Refs.current[i] = el }} className="inline-block gradient-text">
                   {char}
                 </span>
               </span>
@@ -136,31 +136,27 @@ export default function Hero() {
           </p>
         </div>
 
-        {/* Name line 2: BEN AHMED */}
+        {/* Name line 2: BEN AHMED — white */}
         <div aria-hidden className="overflow-visible leading-none -mt-2 md:-mt-4 lg:-mt-6">
           <p
-            className="inline-block font-bebas leading-[0.85] tracking-[0.03em]"
+            className="inline-block font-bebas leading-[0.85] tracking-[0.03em] text-white"
             style={{ fontSize: 'clamp(5.5rem, 18vw, 18rem)' }}
           >
             {LINE2_WHITE.split('').map((char, i) => (
               <span key={`w${i}`} className="letter-wrap">
-                <span ref={(el) => { line2WhiteRefs.current[i] = el }} className="inline-block text-white">
+                <span ref={(el) => { line2WhiteRefs.current[i] = el }} className="inline-block">
                   {char}
                 </span>
               </span>
             ))}
-            {/* Non-breaking space between BEN and AHMED */}
             <span className="letter-wrap">
-              <span ref={(el) => { line2WhiteRefs.current[LINE2_WHITE.length] = el }} className="inline-block text-white">
+              <span ref={(el) => { line2WhiteRefs.current[LINE2_WHITE.length] = el }} className="inline-block">
                 &nbsp;
               </span>
             </span>
             {LINE2_GRADIENT.split('').map((char, i) => (
               <span key={`g${i}`} className="letter-wrap">
-                <span
-                  ref={(el) => { line2GradRefs.current[i] = el }}
-                  className="inline-block gradient-text"
-                >
+                <span ref={(el) => { line2GradRefs.current[i] = el }} className="inline-block">
                   {char}
                 </span>
               </span>

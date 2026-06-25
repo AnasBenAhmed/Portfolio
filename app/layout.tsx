@@ -47,10 +47,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${bebasNeue.variable} ${spaceGrotesk.variable} ${firaCode.variable}`}
     >
       <body className="bg-bg text-white antialiased">
-        <CustomCursor />
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <SmoothScroll>
+          <CustomCursor />
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   )
