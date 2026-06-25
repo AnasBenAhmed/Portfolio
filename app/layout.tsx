@@ -4,6 +4,7 @@ import './globals.css'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import CustomCursor from '@/components/layout/CustomCursor'
+import SmoothScroll from '@/components/layout/SmoothScroll'
 
 const bebasNeue = Bebas_Neue({
   weight: '400',
