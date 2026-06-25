@@ -66,7 +66,7 @@ Every decision here is intentional: the crimson-to-gold brand system, the GSAP s
 
 ```bash
 # Clone
-git clone https://github.com/AnasBenAhmed/portfolio.git
+git clone https://github.com/AnasBenAhmed/Portfolio.git
 cd portfolio
 
 # Install
