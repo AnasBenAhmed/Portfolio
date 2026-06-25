@@ -31,11 +31,11 @@ export const metadata: Metadata = {
   description:
     'Multidisciplinary developer and designer building for web, mobile, and desktop. Portfolio of Anas Ben Ahmed.',
   keywords: ['designer', 'developer', 'Next.js', 'React', 'portfolio', 'Tunisia'],
-  authors: [{ name: 'Anas Ben Ahmed', url: 'https://annas.dev' }],
+  authors: [{ name: 'Anas Ben Ahmed', url: 'https://annas.host' }],
   openGraph: {
     title: 'Anas Ben Ahmed — Designer & Developer',
     description: 'Graphic Designer · Web & Mobile Developer · Software Engineer',
-    url: 'https://annas.dev',
+    url: 'https://annas.host',
     siteName: 'Anas Ben Ahmed',
     type: 'website',
   },
