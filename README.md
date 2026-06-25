@@ -4,7 +4,7 @@
 
 <img src="https://readme-typing-svg.demolab.com?font=Bebas+Neue&weight=400&size=52&duration=2800&pause=1400&color=FFFFFF&center=true&vCenter=true&width=700&height=70&lines=ANAS+BEN+AHMED" alt="Anas Ben Ahmed" />
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=13&duration=2000&pause=1200&color=E0A82E&center=true&vCenter=true&width=700&height=30&lines=Graphic+Designer+%C2%B7+Full+Stack+Developer+%C2%B7+Software+Engineer;Available+for+work+%E2%80%94+Tunisia" alt="Tagline" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=13&duration=2000&pause=1200&color=E0A82E&center=true&vCenter=true&width=700&height=30&lines=Graphic+Designer+%C2%B7+Full+Stack+Developer+%C2%B7+Software+Engineer;Available+for+work" alt="Tagline" />
 
 <br/>
 
@@ -118,7 +118,7 @@ portfolio/
 
 <br/>
 
-*Designed & engineered by* **Anas Ben Ahmed** — Tunisia
+*Designed & engineered by* **Anas Ben Ahmed**
 
 <br/>
 
