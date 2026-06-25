@@ -87,6 +87,7 @@ export default function Projects() {
             ref={(el) => { rowsRef.current[i] = el }}
             onMouseEnter={() => handleMouseEnter(i)}
             onMouseLeave={() => handleMouseLeave(i)}
+            data-project
             className="group relative block border-t border-white/5 px-6 py-7 transition-none md:px-10 last:border-b"
           >
             {/* Hover fill line */}
