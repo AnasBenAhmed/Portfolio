@@ -150,77 +150,75 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
       <div className="mx-auto max-w-7xl px-6 pt-12 md:px-10">
         <div ref={mockupRef} className="grid grid-cols-12 gap-3">
 
-          {/* Main frame — browser chrome style */}
+          {/* Main frame — browser chrome */}
           <div
-            className="relative col-span-12 overflow-hidden border border-white/[0.06] md:col-span-8"
-            style={{ aspectRatio: '16/9' }}
+            className="col-span-12 overflow-hidden border border-white/[0.08] md:col-span-8"
+            style={{ aspectRatio: '16/9', background: `${project.accentColor}06` }}
           >
-            <div className="absolute inset-0" style={{ background: `${project.accentColor}06` }} />
-            {/* Browser toolbar */}
-            <div className="absolute left-0 right-0 top-0 z-10 flex h-8 items-center gap-1.5 border-b border-white/[0.04] bg-black/30 backdrop-blur-sm px-3">
-              <div className="h-2 w-2 rounded-full bg-white/10" />
-              <div className="h-2 w-2 rounded-full bg-white/10" />
-              <div className="h-2 w-2 rounded-full bg-white/10" />
-              <div className="mx-3 h-4 flex-1 rounded-sm border border-white/[0.06]" />
+            {/* Toolbar — sits in flow so screenshot starts below it */}
+            <div className="flex h-8 items-center gap-1.5 border-b border-white/[0.08] bg-[#0e0e0e] px-3">
+              <div className="h-2 w-2 rounded-full bg-white/30" />
+              <div className="h-2 w-2 rounded-full bg-white/15" />
+              <div className="h-2 w-2 rounded-full bg-white/15" />
+              <div className="mx-3 h-4 flex-1 rounded-sm border border-white/[0.08] bg-white/[0.03]" />
             </div>
-            {project.screenshots?.desktop ? (
-              <Image
-                src={project.screenshots.desktop}
-                alt={`${project.title} desktop preview`}
-                fill
-                className="object-cover object-top"
-                sizes="(max-width: 768px) 100vw, 66vw"
-              />
-            ) : (
-              <div className="absolute inset-0 flex items-center justify-center pt-8">
-                <div className="relative h-full w-full">
-                  <div className="absolute inset-0 border" style={{ borderColor: `${project.accentColor}10` }} />
-                  <div className="absolute left-0 right-0 top-1/2 h-px" style={{ background: `${project.accentColor}10` }} />
-                  <div className="absolute bottom-0 left-1/2 top-0 w-px" style={{ background: `${project.accentColor}10` }} />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <p className="font-fira text-[9px] uppercase tracking-widest" style={{ color: `${project.accentColor}35` }}>
-                      Preview
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Secondary frame — mobile */}
-          <div
-            className="relative col-span-12 overflow-hidden border border-white/[0.06] md:col-span-4"
-            style={{ aspectRatio: '16/9' }}
-          >
-            <div className="absolute inset-0" style={{ background: `${project.accentColor}04` }} />
-            {project.screenshots?.mobile ? (
-              <>
+            {/* Screenshot below chrome */}
+            <div className="relative w-full" style={{ height: 'calc(100% - 2rem)' }}>
+              {project.screenshots?.desktop ? (
                 <Image
-                  src={project.screenshots.mobile}
-                  alt={`${project.title} mobile preview`}
+                  src={project.screenshots.desktop}
+                  alt={`${project.title} desktop preview`}
                   fill
                   className="object-cover object-top"
-                  sizes="(max-width: 768px) 100vw, 33vw"
+                  sizes="(max-width: 768px) 100vw, 66vw"
                 />
-                {/* Phone bezel overlay */}
-                <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
-                  <div
-                    className="h-[78%] w-[38%] rounded-2xl border-2 shadow-[0_0_0_1px_rgba(0,0,0,0.6)] shadow-inner"
-                    style={{ borderColor: 'rgba(255,255,255,0.12)', background: 'transparent' }}
-                  >
-                    <div className="mx-auto mt-2 h-1 w-8 rounded-full bg-white/10" />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="relative h-full w-full">
+                    <div className="absolute inset-0 border" style={{ borderColor: `${project.accentColor}10` }} />
+                    <div className="absolute left-0 right-0 top-1/2 h-px" style={{ background: `${project.accentColor}10` }} />
+                    <div className="absolute bottom-0 left-1/2 top-0 w-px" style={{ background: `${project.accentColor}10` }} />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <p className="font-fira text-[9px] uppercase tracking-widest" style={{ color: `${project.accentColor}35` }}>Preview</p>
+                    </div>
                   </div>
                 </div>
-              </>
-            ) : (
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
+              )}
+            </div>
+          </div>
+
+          {/* Secondary frame — phone mockup */}
+          <div
+            className="col-span-12 overflow-hidden border border-white/[0.08] md:col-span-4"
+            style={{ aspectRatio: '16/9', background: `${project.accentColor}04` }}
+          >
+            {project.screenshots?.mobile ? (
+              <div className="flex h-full items-center justify-center">
+                {/* Phone shell */}
                 <div
-                  className="h-16 w-8 rounded-sm border"
-                  style={{ borderColor: `${project.accentColor}20` }}
-                />
-                <p className="font-fira text-[9px] uppercase tracking-widest" style={{ color: `${project.accentColor}30` }}>
-                  Mobile View
-                </p>
+                  className="relative overflow-hidden rounded-[18px] border-2 border-white/20"
+                  style={{ height: '88%', aspectRatio: '9/19.5', background: '#080808' }}
+                >
+                  {/* Notch */}
+                  <div className="absolute left-1/2 top-2 z-10 h-[3px] w-10 -translate-x-1/2 rounded-full bg-white/25" />
+                  {/* Screen */}
+                  <div className="absolute inset-0 overflow-hidden rounded-[16px]">
+                    <Image
+                      src={project.screenshots.mobile}
+                      alt={`${project.title} mobile preview`}
+                      fill
+                      className="object-cover object-top"
+                      sizes="20vw"
+                    />
+                  </div>
+                  {/* Home indicator */}
+                  <div className="absolute bottom-2 left-1/2 z-10 h-[3px] w-8 -translate-x-1/2 rounded-full bg-white/25" />
+                </div>
+              </div>
+            ) : (
+              <div className="flex h-full flex-col items-center justify-center gap-4">
+                <div className="rounded-[10px] border border-white/10" style={{ height: '70%', aspectRatio: '9/19.5' }} />
+                <p className="font-fira text-[9px] uppercase tracking-widest" style={{ color: `${project.accentColor}30` }}>Mobile View</p>
               </div>
             )}
           </div>
