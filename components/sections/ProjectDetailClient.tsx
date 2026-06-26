@@ -186,10 +186,10 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
             </div>
           </div>
 
-          {/* Mobile frame — fixed narrow width, stretches to desktop frame height */}
+          {/* Mobile frame — narrow portrait, aspect ratio matched to desktop height */}
           <div
             className="relative w-full shrink-0 overflow-hidden border border-white/[0.08] md:w-[22%]"
-            style={{ background: `${project.accentColor}04` }}
+            style={{ aspectRatio: '1/2', background: `${project.accentColor}04` }}
           >
             {project.screenshots?.mobile ? (
               <Image
