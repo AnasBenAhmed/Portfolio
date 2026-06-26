@@ -14,12 +14,14 @@ interface Props {
 }
 
 export default function ProjectDetailClient({ project, prev, next }: Props) {
-  const heroSectionRef = useRef<HTMLDivElement>(null)
-  const tiltRef        = useRef<HTMLDivElement>(null)
-  const heroRef        = useRef<HTMLDivElement>(null)
-  const contentRef     = useRef<HTMLDivElement>(null)
-  const featuresRef    = useRef<HTMLUListElement>(null)
-  const mockupRef      = useRef<HTMLDivElement>(null)
+  const heroSectionRef  = useRef<HTMLDivElement>(null)
+  const tiltRef         = useRef<HTMLDivElement>(null)
+  const heroRef         = useRef<HTMLDivElement>(null)
+  const contentRef      = useRef<HTMLDivElement>(null)
+  const featuresRef     = useRef<HTMLUListElement>(null)
+  const mockupRef       = useRef<HTMLDivElement>(null)
+  const desktopFrameRef = useRef<HTMLDivElement>(null)
+  const mobileFrameRef  = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
@@ -95,6 +97,18 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
     return () => ScrollTrigger.getAll().forEach((t) => t.kill())
   }, [])
 
+  // Keep mobile frame height in sync with desktop frame height
+  useEffect(() => {
+    const desktop = desktopFrameRef.current
+    const mobile = mobileFrameRef.current
+    if (!desktop || !mobile) return
+    const sync = () => { mobile.style.height = `${desktop.offsetHeight}px` }
+    const observer = new ResizeObserver(sync)
+    observer.observe(desktop)
+    sync()
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <div className="min-h-screen bg-bg">
 
@@ -152,6 +166,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
 
           {/* Desktop frame — landscape, takes remaining width */}
           <div
+            ref={desktopFrameRef}
             className="w-full overflow-hidden border border-white/[0.08] md:flex-1"
             style={{ aspectRatio: '16/9', background: `${project.accentColor}06` }}
           >
@@ -186,10 +201,11 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
             </div>
           </div>
 
-          {/* Mobile frame — narrow portrait, aspect ratio matched to desktop height */}
+          {/* Mobile frame — same height as desktop, narrow width */}
           <div
+            ref={mobileFrameRef}
             className="relative w-full shrink-0 overflow-hidden border border-white/[0.08] md:w-[22%]"
-            style={{ aspectRatio: '1/2', background: `${project.accentColor}04` }}
+            style={{ background: `${project.accentColor}04` }}
           >
             {project.screenshots?.mobile ? (
               <Image
