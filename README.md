@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=E11B22&height=140&section=header&text=ABA·&fontSize=72&fontColor=ffffff&fontAlign=50&fontAlignY=55&animation=fadeIn" width="100%" />
+<img src="public/aba-readme.svg" width="320" alt="ABA" />
 
 <img src="https://readme-typing-svg.demolab.com?font=Bebas+Neue&weight=400&size=52&duration=2800&pause=99999&color=FFFFFF&center=true&vCenter=true&width=700&height=70&lines=ANAS+BEN+AHMED&repeat=false" alt="Anas Ben Ahmed" />
 
@@ -104,6 +104,7 @@ portfolio/
 │   │   ├── Contact.tsx          # EmailJS contact form
 │   │   └── ProjectDetailClient.tsx   # Tilt effect + mockup frames
 │   └── ui/
+│       ├── ABALogo.tsx          # Geometric ABA SVG logo component
 │       ├── Preloader.tsx        # Session-gated ABA reveal preloader
 │       └── PageTransition.tsx   # Route-change crimson wipe
 └── data/

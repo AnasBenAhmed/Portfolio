@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import ABALogo from '@/components/ui/ABALogo'
 
 const NAV = [
   { label: 'About',    href: '/#about' },
@@ -57,9 +58,8 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="shrink-0">
-            <div className="mb-2 flex items-center gap-2">
-              <span className="font-bebas text-2xl tracking-widest text-crimson">ABA</span>
-              <span className="h-1.5 w-1.5 rounded-full bg-gold" />
+            <div className="mb-2">
+              <ABALogo className="h-6 w-auto text-crimson" />
             </div>
             <p className="font-space text-xs leading-relaxed text-muted">
               Anas Ben Ahmed<br />Designer &amp; Developer

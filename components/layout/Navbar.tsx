@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { gsap } from 'gsap'
+import ABALogo from '@/components/ui/ABALogo'
 
 const NAV_LINKS = [
   { label: 'About', href: '/#about' },
@@ -61,10 +62,7 @@ export default function Navbar() {
               }
             }}
           >
-            <span className="font-bebas text-2xl tracking-widest text-crimson transition-all duration-300 group-hover:text-gold">
-              ABA
-            </span>
-            <span className="ml-1 h-1.5 w-1.5 rounded-full bg-gold transition-all duration-300 group-hover:bg-crimson" />
+            <ABALogo className="h-7 w-auto text-crimson transition-colors duration-300 group-hover:text-gold" />
           </Link>
 
           {/* Desktop links */}
