@@ -169,6 +169,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
                   src={project.screenshots.desktop}
                   alt={`${project.title} desktop preview`}
                   fill
+                  quality={90}
                   className="object-cover object-top"
                   sizes="(max-width: 768px) 100vw, 66vw"
                 />
@@ -207,6 +208,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
                       src={project.screenshots.mobile}
                       alt={`${project.title} mobile preview`}
                       fill
+                      quality={90}
                       className="object-cover object-top"
                       sizes="20vw"
                     />
