@@ -9,6 +9,7 @@ export interface Project {
   features: string[]
   accentColor: string
   github?: string
+  domain?: string
   screenshots?: { desktop?: string; mobile?: string }
 }
 
@@ -35,6 +36,7 @@ export const projects: Project[] = [
     ],
     accentColor: '#E11B22',
     github: 'https://github.com/AnasBenAhmed/Portfolio',
+    domain: 'https://annas.host',
     screenshots: {
       desktop: '/screenshots/portfolio-desktop.jpg',
       mobile: '/screenshots/portfolio-mobile.jpg',
