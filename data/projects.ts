@@ -36,8 +36,8 @@ export const projects: Project[] = [
     accentColor: '#E11B22',
     github: 'https://github.com/AnasBenAhmed/Portfolio',
     screenshots: {
-      desktop: '/screenshots/portfolio-desktop.jpg?v=2',
-      mobile: '/screenshots/portfolio-mobile.jpg?v=2',
+      desktop: '/screenshots/portfolio-desktop.jpg',
+      mobile: '/screenshots/portfolio-mobile.jpg',
     },
   },
   {
