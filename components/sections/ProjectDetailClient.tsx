@@ -324,7 +324,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
             {next && (
               <Link
                 href={`/projects/${next.slug}`}
-                className="group flex items-center gap-4 text-right transition-colors duration-200"
+                className="group flex items-center gap-4 text-right transition-colors duration-200 self-end sm:self-auto"
               >
                 <div>
                   <p className="font-fira text-[10px] uppercase tracking-widest text-muted">Next</p>
