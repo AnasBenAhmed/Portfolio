@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="public/aba-readme.svg" width="320" alt="ABA" />
+<img src="public/aba-banner.svg" width="100%" alt="ABA" />
 
 <img src="https://readme-typing-svg.demolab.com?font=Bebas+Neue&weight=400&size=52&duration=2800&pause=99999&color=FFFFFF&center=true&vCenter=true&width=700&height=70&lines=ANAS+BEN+AHMED&repeat=false" alt="Anas Ben Ahmed" />
 
