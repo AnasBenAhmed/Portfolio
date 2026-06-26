@@ -148,21 +148,19 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
 
       {/* ── Screenshot mockups ─────────────────────────────── */}
       <div className="mx-auto max-w-7xl px-6 pt-12 md:px-10">
-        <div ref={mockupRef} className="grid grid-cols-12 gap-3">
+        <div ref={mockupRef} className="flex flex-col gap-3 md:flex-row md:items-start">
 
-          {/* Main frame — browser chrome */}
+          {/* Desktop frame — landscape, takes remaining width */}
           <div
-            className="col-span-12 overflow-hidden border border-white/[0.08] md:col-span-8"
+            className="w-full overflow-hidden border border-white/[0.08] md:flex-1"
             style={{ aspectRatio: '16/9', background: `${project.accentColor}06` }}
           >
-            {/* Toolbar — sits in flow so screenshot starts below it */}
             <div className="flex h-8 items-center gap-1.5 border-b border-white/[0.08] bg-[#0e0e0e] px-3">
               <div className="h-2 w-2 rounded-full bg-white/30" />
               <div className="h-2 w-2 rounded-full bg-white/15" />
               <div className="h-2 w-2 rounded-full bg-white/15" />
               <div className="mx-3 h-4 flex-1 rounded-sm border border-white/[0.08] bg-white/[0.03]" />
             </div>
-            {/* Screenshot below chrome */}
             <div className="relative w-full" style={{ height: 'calc(100% - 2rem)' }}>
               {project.screenshots?.desktop ? (
                 <Image
@@ -188,10 +186,10 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
             </div>
           </div>
 
-          {/* Secondary frame — mobile screenshot */}
+          {/* Mobile frame — portrait, fixed width so it stays narrow and tall */}
           <div
-            className="relative col-span-12 overflow-hidden border border-white/[0.08] md:col-span-4"
-            style={{ aspectRatio: '16/9', background: `${project.accentColor}04` }}
+            className="relative w-full shrink-0 overflow-hidden border border-white/[0.08] md:w-[22%]"
+            style={{ aspectRatio: '9/16', background: `${project.accentColor}04` }}
           >
             {project.screenshots?.mobile ? (
               <Image
@@ -200,7 +198,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
                 fill
                 quality={90}
                 className="object-cover object-top"
-                sizes="(max-width: 768px) 100vw, 33vw"
+                sizes="(max-width: 768px) 100vw, 22vw"
               />
             ) : (
               <div className="absolute inset-0 flex items-center justify-center">
@@ -209,7 +207,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
                   <div className="absolute left-0 right-0 top-1/2 h-px" style={{ background: `${project.accentColor}10` }} />
                   <div className="absolute bottom-0 left-1/2 top-0 w-px" style={{ background: `${project.accentColor}10` }} />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <p className="font-fira text-[9px] uppercase tracking-widest" style={{ color: `${project.accentColor}35` }}>Mobile View</p>
+                    <p className="font-fira text-[9px] uppercase tracking-widest" style={{ color: `${project.accentColor}35` }}>Mobile</p>
                   </div>
                 </div>
               </div>
