@@ -188,38 +188,38 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
             </div>
           </div>
 
-          {/* Secondary frame — phone mockup */}
+          {/* Secondary frame — mobile screenshot */}
           <div
-            className="col-span-12 overflow-hidden border border-white/[0.08] md:col-span-4"
+            className="relative col-span-12 overflow-hidden border border-white/[0.08] md:col-span-4"
             style={{ aspectRatio: '16/9', background: `${project.accentColor}04` }}
           >
             {project.screenshots?.mobile ? (
-              <div className="flex h-full items-center justify-center">
-                {/* Phone shell */}
-                <div
-                  className="relative overflow-hidden rounded-[18px] border-2 border-white/20"
-                  style={{ height: '88%', aspectRatio: '9/19.5', background: '#080808' }}
-                >
-                  {/* Notch */}
-                  <div className="absolute left-1/2 top-2 z-10 h-[3px] w-10 -translate-x-1/2 rounded-full bg-white/25" />
-                  {/* Screen */}
-                  <div className="absolute inset-0 overflow-hidden rounded-[16px]">
+              <>
+                {/* Screenshot as a centered floating card */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div
+                    className="relative overflow-hidden shadow-2xl"
+                    style={{ height: '100%', aspectRatio: '9/16' }}
+                  >
                     <Image
                       src={project.screenshots.mobile}
                       alt={`${project.title} mobile preview`}
                       fill
                       quality={90}
                       className="object-cover object-top"
-                      sizes="20vw"
+                      sizes="33vw"
                     />
                   </div>
-                  {/* Home indicator */}
-                  <div className="absolute bottom-2 left-1/2 z-10 h-[3px] w-8 -translate-x-1/2 rounded-full bg-white/25" />
                 </div>
-              </div>
+                {/* Fade the left/right edges into the frame */}
+                <div className="pointer-events-none absolute inset-y-0 left-0 w-12"
+                  style={{ background: `linear-gradient(to right, ${project.accentColor}08, transparent)` }} />
+                <div className="pointer-events-none absolute inset-y-0 right-0 w-12"
+                  style={{ background: `linear-gradient(to left, ${project.accentColor}08, transparent)` }} />
+              </>
             ) : (
-              <div className="flex h-full flex-col items-center justify-center gap-4">
-                <div className="rounded-[10px] border border-white/10" style={{ height: '70%', aspectRatio: '9/19.5' }} />
+              <div className="flex h-full flex-col items-center justify-center gap-3">
+                <div className="border border-white/[0.08]" style={{ height: '80%', aspectRatio: '9/16' }} />
                 <p className="font-fira text-[9px] uppercase tracking-widest" style={{ color: `${project.accentColor}30` }}>Mobile View</p>
               </div>
             )}
