@@ -194,33 +194,24 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
             style={{ aspectRatio: '16/9', background: `${project.accentColor}04` }}
           >
             {project.screenshots?.mobile ? (
-              <>
-                {/* Screenshot as a centered floating card */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div
-                    className="relative overflow-hidden shadow-2xl"
-                    style={{ height: '100%', aspectRatio: '9/16' }}
-                  >
-                    <Image
-                      src={project.screenshots.mobile}
-                      alt={`${project.title} mobile preview`}
-                      fill
-                      quality={90}
-                      className="object-cover object-top"
-                      sizes="33vw"
-                    />
+              <Image
+                src={project.screenshots.mobile}
+                alt={`${project.title} mobile preview`}
+                fill
+                quality={90}
+                className="object-cover object-top"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="relative h-full w-full">
+                  <div className="absolute inset-0 border" style={{ borderColor: `${project.accentColor}10` }} />
+                  <div className="absolute left-0 right-0 top-1/2 h-px" style={{ background: `${project.accentColor}10` }} />
+                  <div className="absolute bottom-0 left-1/2 top-0 w-px" style={{ background: `${project.accentColor}10` }} />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <p className="font-fira text-[9px] uppercase tracking-widest" style={{ color: `${project.accentColor}35` }}>Mobile View</p>
                   </div>
                 </div>
-                {/* Fade the left/right edges into the frame */}
-                <div className="pointer-events-none absolute inset-y-0 left-0 w-12"
-                  style={{ background: `linear-gradient(to right, ${project.accentColor}08, transparent)` }} />
-                <div className="pointer-events-none absolute inset-y-0 right-0 w-12"
-                  style={{ background: `linear-gradient(to left, ${project.accentColor}08, transparent)` }} />
-              </>
-            ) : (
-              <div className="flex h-full flex-col items-center justify-center gap-3">
-                <div className="border border-white/[0.08]" style={{ height: '80%', aspectRatio: '9/16' }} />
-                <p className="font-fira text-[9px] uppercase tracking-widest" style={{ color: `${project.accentColor}30` }}>Mobile View</p>
               </div>
             )}
           </div>
