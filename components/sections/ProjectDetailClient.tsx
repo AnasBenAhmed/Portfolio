@@ -185,7 +185,9 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
               <div className="h-2 w-2 rounded-full bg-white/30" />
               <div className="h-2 w-2 rounded-full bg-white/15" />
               <div className="h-2 w-2 rounded-full bg-white/15" />
-              <div className="mx-3 h-4 flex-1 rounded-sm border border-white/[0.08] bg-white/[0.03]" />
+              <div className="mx-3 flex h-4 flex-1 items-center rounded-sm border border-white/[0.08] bg-white/[0.03] px-2">
+                <span className="font-fira text-[9px] text-white/30">https://annas.host</span>
+              </div>
             </div>
             <div className="relative w-full" style={{ height: 'calc(100% - 2rem)' }}>
               {project.screenshots?.desktop ? (
