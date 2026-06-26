@@ -97,16 +97,27 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
     return () => ScrollTrigger.getAll().forEach((t) => t.kill())
   }, [])
 
-  // Keep mobile frame height in sync with desktop frame height
+  // On desktop (md+): sync mobile frame height to desktop frame height exactly.
+  // On mobile: let the CSS aspect-ratio (9/16) handle it naturally.
   useEffect(() => {
     const desktop = desktopFrameRef.current
     const mobile = mobileFrameRef.current
     if (!desktop || !mobile) return
-    const sync = () => { mobile.style.height = `${desktop.offsetHeight}px` }
+    const sync = () => {
+      if (window.innerWidth >= 768) {
+        mobile.style.height = `${desktop.offsetHeight}px`
+      } else {
+        mobile.style.height = ''
+      }
+    }
     const observer = new ResizeObserver(sync)
     observer.observe(desktop)
+    window.addEventListener('resize', sync)
     sync()
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('resize', sync)
+    }
   }, [])
 
   return (
@@ -201,11 +212,11 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
             </div>
           </div>
 
-          {/* Mobile frame — same height as desktop, narrow width */}
+          {/* Mobile frame — portrait on mobile, synced height on desktop */}
           <div
             ref={mobileFrameRef}
             className="relative w-full shrink-0 overflow-hidden border border-white/[0.08] md:w-[22%]"
-            style={{ background: `${project.accentColor}04` }}
+            style={{ aspectRatio: '9/16', background: `${project.accentColor}04` }}
           >
             {project.screenshots?.mobile ? (
               <Image
