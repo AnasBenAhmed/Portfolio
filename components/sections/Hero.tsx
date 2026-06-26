@@ -213,7 +213,7 @@ export default function Hero() {
           ref={taglineRef}
           className="mt-5 font-space text-[10px] font-light uppercase tracking-[0.45em] text-white/40 md:text-xs"
         >
-          Graphic Designer&nbsp;&nbsp;·&nbsp;&nbsp;Full Stack Developer&nbsp;&nbsp;·&nbsp;&nbsp;Software Engineer
+          Graphic Designer&nbsp;&nbsp;·&nbsp;&nbsp;Full Stack Web Developer&nbsp;&nbsp;·&nbsp;&nbsp;Software Engineer
         </p>
 
         {/* CTA buttons */}
