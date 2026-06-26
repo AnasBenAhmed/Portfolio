@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -156,25 +157,34 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
           >
             <div className="absolute inset-0" style={{ background: `${project.accentColor}06` }} />
             {/* Browser toolbar */}
-            <div className="absolute left-0 right-0 top-0 flex h-8 items-center gap-1.5 border-b border-white/[0.04] px-3">
+            <div className="absolute left-0 right-0 top-0 z-10 flex h-8 items-center gap-1.5 border-b border-white/[0.04] bg-black/30 backdrop-blur-sm px-3">
               <div className="h-2 w-2 rounded-full bg-white/10" />
               <div className="h-2 w-2 rounded-full bg-white/10" />
               <div className="h-2 w-2 rounded-full bg-white/10" />
               <div className="mx-3 h-4 flex-1 rounded-sm border border-white/[0.06]" />
             </div>
-            {/* Crosshair placeholder */}
-            <div className="absolute inset-0 flex items-center justify-center pt-8">
-              <div className="relative h-full w-full">
-                <div className="absolute inset-0 border" style={{ borderColor: `${project.accentColor}10` }} />
-                <div className="absolute left-0 right-0 top-1/2 h-px" style={{ background: `${project.accentColor}10` }} />
-                <div className="absolute bottom-0 left-1/2 top-0 w-px" style={{ background: `${project.accentColor}10` }} />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <p className="font-fira text-[9px] uppercase tracking-widest" style={{ color: `${project.accentColor}35` }}>
-                    Preview
-                  </p>
+            {project.screenshots?.desktop ? (
+              <Image
+                src={project.screenshots.desktop}
+                alt={`${project.title} desktop preview`}
+                fill
+                className="object-cover object-top"
+                sizes="(max-width: 768px) 100vw, 66vw"
+              />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center pt-8">
+                <div className="relative h-full w-full">
+                  <div className="absolute inset-0 border" style={{ borderColor: `${project.accentColor}10` }} />
+                  <div className="absolute left-0 right-0 top-1/2 h-px" style={{ background: `${project.accentColor}10` }} />
+                  <div className="absolute bottom-0 left-1/2 top-0 w-px" style={{ background: `${project.accentColor}10` }} />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <p className="font-fira text-[9px] uppercase tracking-widest" style={{ color: `${project.accentColor}35` }}>
+                      Preview
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* Secondary frame — mobile */}
@@ -183,15 +193,36 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
             style={{ aspectRatio: '16/9' }}
           >
             <div className="absolute inset-0" style={{ background: `${project.accentColor}04` }} />
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
-              <div
-                className="h-16 w-8 rounded-sm border"
-                style={{ borderColor: `${project.accentColor}20` }}
-              />
-              <p className="font-fira text-[9px] uppercase tracking-widest" style={{ color: `${project.accentColor}30` }}>
-                Mobile View
-              </p>
-            </div>
+            {project.screenshots?.mobile ? (
+              <>
+                <Image
+                  src={project.screenshots.mobile}
+                  alt={`${project.title} mobile preview`}
+                  fill
+                  className="object-cover object-top"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                {/* Phone bezel overlay */}
+                <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
+                  <div
+                    className="h-[78%] w-[38%] rounded-2xl border-2 shadow-[0_0_0_1px_rgba(0,0,0,0.6)] shadow-inner"
+                    style={{ borderColor: 'rgba(255,255,255,0.12)', background: 'transparent' }}
+                  >
+                    <div className="mx-auto mt-2 h-1 w-8 rounded-full bg-white/10" />
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
+                <div
+                  className="h-16 w-8 rounded-sm border"
+                  style={{ borderColor: `${project.accentColor}20` }}
+                />
+                <p className="font-fira text-[9px] uppercase tracking-widest" style={{ color: `${project.accentColor}30` }}>
+                  Mobile View
+                </p>
+              </div>
+            )}
           </div>
 
         </div>

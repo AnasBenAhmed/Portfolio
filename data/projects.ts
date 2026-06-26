@@ -9,6 +9,7 @@ export interface Project {
   features: string[]
   accentColor: string
   github?: string
+  screenshots?: { desktop?: string; mobile?: string }
 }
 
 export const projects: Project[] = [
@@ -34,6 +35,10 @@ export const projects: Project[] = [
     ],
     accentColor: '#E11B22',
     github: 'https://github.com/AnasBenAhmed/Portfolio',
+    screenshots: {
+      desktop: '/screenshots/portfolio-desktop.png',
+      mobile: '/screenshots/portfolio-mobile.png',
+    },
   },
   {
     slug: 'ecommerce',
