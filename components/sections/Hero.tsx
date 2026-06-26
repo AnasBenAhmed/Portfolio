@@ -169,7 +169,7 @@ export default function Hero() {
         </div>
 
         {/* Name line 2: BEN AHMED — white */}
-        <div aria-hidden className="overflow-visible leading-none -mt-2 md:-mt-4 lg:-mt-6">
+        <div aria-hidden className="overflow-visible leading-none mt-1 md:-mt-4 lg:-mt-6">
           <p
             className="inline-block font-bebas leading-[0.85] tracking-[0.03em] text-white"
             style={{ fontSize: 'clamp(5.5rem, 18vw, 18rem)' }}
