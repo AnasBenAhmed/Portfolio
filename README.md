@@ -119,6 +119,6 @@ portfolio/
 
 <br/>
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=E11B22&height=120&section=footer&text=Designed+and+engineered+by+Anas+Ben+Ahmed+%E2%80%94+Tunisia&fontSize=20&fontColor=ffffff&fontAlign=50&fontAlignY=58&animation=fadeIn" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=E11B22&height=120&section=footer&text=Designed+and+engineered+by+Anas+Ben+Ahmed&fontSize=20&fontColor=ffffff&fontAlign=50&fontAlignY=58&animation=fadeIn" width="100%" />
 
 </div>

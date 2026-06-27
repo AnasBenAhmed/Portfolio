@@ -104,7 +104,7 @@ export default function Footer() {
         {/* Copyright strip */}
         <div className="border-t border-white/5 py-5 flex flex-col items-center gap-1 md:flex-row md:justify-between">
           <p className="font-space text-[10px] text-white/20">
-            © {year} Anas Ben Ahmed · Tunisia
+            © {year} Anas Ben Ahmed
           </p>
           <p className="font-space text-[10px] text-white/20">
             Designed &amp; built by hand
