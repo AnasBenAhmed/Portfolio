@@ -28,6 +28,18 @@ Every decision here is intentional: the crimson-to-gold brand system, the GSAP s
 
 <br/>
 
+<div align="center">
+
+<img src="public/screenshots/portfolio-desktop.jpg" width="100%" alt="Portfolio website — desktop" />
+
+<br/><br/>
+
+<img src="public/screenshots/portfolio-mobile.jpg" width="30%" alt="Portfolio website — mobile" />
+
+</div>
+
+<br/>
+
 ## `02` — Stack
 
 <div align="center">
