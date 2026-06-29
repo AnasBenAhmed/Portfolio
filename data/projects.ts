@@ -61,6 +61,10 @@ export const projects: Project[] = [
     ],
     accentColor: '#E11B22',
     github: 'https://github.com/AnasBenAhmed/Ripple',
+    screenshots: {
+      desktop: '/screenshots/ripple-desktop.png',
+      mobile: '/screenshots/ripple-mobile.png',
+    },
   },
   {
     slug: 'ecommerce',
