@@ -61,8 +61,9 @@ export default function Footer() {
             <div className="mb-2">
               <ABALogo className="h-6 w-auto text-crimson" />
             </div>
-            <p className="font-space text-xs leading-relaxed text-muted">
-              Anas Ben Ahmed<br />Designer &amp; Developer
+            <p className="font-space text-xs leading-relaxed text-muted">Anas Ben Ahmed</p>
+            <p className="mt-1.5 max-w-xs font-space text-[10px] font-light uppercase leading-relaxed tracking-[0.25em] text-muted">
+              Graphic Designer&nbsp;·&nbsp;Full Stack Web Developer&nbsp;·&nbsp;Software Engineer
             </p>
           </div>
 
