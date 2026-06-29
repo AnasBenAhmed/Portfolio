@@ -4,9 +4,10 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SectionTitle from '@/components/ui/SectionTitle'
+import { projects } from '@/data/projects'
 
 const STATS = [
-  { value: 4,   suffix: '',  label: 'Featured Projects' },
+  { value: projects.length, suffix: '',  label: 'Featured Projects' },
   { value: 3,   suffix: '+', label: 'Platforms' },
   { value: 13,  suffix: '+', label: 'Years of Experience' },
   { value: 100, suffix: '%', label: 'Design Passion' },
