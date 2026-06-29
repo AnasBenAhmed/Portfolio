@@ -142,6 +142,24 @@ export const projects: Project[] = [
     ],
     accentColor: '#E0A82E',
   },
+  {
+    slug: 'cipher',
+    number: '07',
+    title: 'CIPHER — ENCRYPTED MESSENGER',
+    tech: 'WebRTC · libsodium',
+    techList: ['WebRTC', 'libsodium', 'End-to-End Encryption', 'P2P'],
+    description: 'A private, end-to-end encrypted messenger with peer-to-peer delivery — no central server holding your messages. Inspired by Signal and Session, built privacy-first.',
+    longDescription: 'Cipher is a secure messaging app built around privacy and end-to-end encryption. Messages are encrypted on the sender\'s device and only decryptable by the recipient, and delivery is peer-to-peer where possible — so no central server ever stores plaintext or message history. The goal is a clean, modern chat experience with the security guarantees of Signal and the serverless, metadata-resistant approach of Session.',
+    features: [
+      'End-to-end encryption — only sender and recipient can read messages',
+      'Peer-to-peer delivery — no central server storing messages',
+      'No phone number or email required to sign up',
+      'Forward secrecy — keys rotate so past messages stay safe',
+      'Encrypted media and file sharing',
+      'Clean, modern chat UI',
+    ],
+    accentColor: '#E11B22',
+  },
 ]
 
 export function getProjectBySlug(slug: string): Project | undefined {
