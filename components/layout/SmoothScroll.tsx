@@ -33,6 +33,13 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     gsap.ticker.add(tick)
     gsap.ticker.lagSmoothing(0)
 
+    // ScrollTrigger start points are measured at creation, but layout shifts as
+    // fonts/images load. Recalculate once they settle so reveal triggers fire at
+    // the correct scroll positions (otherwise some never fire and stay hidden).
+    const refresh = () => ScrollTrigger.refresh()
+    document.fonts?.ready.then(refresh)
+    window.addEventListener('load', refresh)
+
     // Capture phase fires BEFORE React/Next.js processes Link clicks, so
     // e.preventDefault() here stops Next.js from navigating to /#hash URLs.
     const onAnchorClick = (e: MouseEvent) => {
@@ -97,6 +104,11 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
           window.scrollTo(0, 0)
         }
       }
+
+      // The new page mounts fresh sections — recompute trigger positions so
+      // scroll-reveal animations fire correctly (fixes titles staying hidden
+      // after navigating between pages).
+      ScrollTrigger.refresh()
     })
     return () => cancelAnimationFrame(id)
   }, [pathname])

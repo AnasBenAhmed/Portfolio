@@ -16,6 +16,8 @@ export default function Projects() {
 
     const isTouch = window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0
 
+    const triggers: ScrollTrigger[] = []
+
     rowsRef.current.forEach((row) => {
       if (!row) return
 
@@ -38,7 +40,7 @@ export default function Projects() {
       }
 
       /* one-by-one reveal as each row enters viewport */
-      ScrollTrigger.create({
+      triggers.push(ScrollTrigger.create({
         trigger: row,
         start: 'top 90%',
         once: true,
@@ -52,10 +54,15 @@ export default function Projects() {
             tl.to(desc,   { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, '-=0.3')
           }
         },
-      })
+      }))
     })
 
-    return () => ScrollTrigger.getAll().forEach((t) => t.kill())
+    // Positions can be stale right after a client-side navigation — recompute
+    // so any row already in view reveals instead of staying hidden.
+    ScrollTrigger.refresh()
+
+    // Only kill OUR triggers (a global kill would nuke other sections' reveals).
+    return () => triggers.forEach((t) => t.kill())
   }, [])
 
   const getEls = (row: HTMLAnchorElement) => ({
