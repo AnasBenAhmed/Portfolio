@@ -28,19 +28,17 @@ Every decision here is intentional: the crimson-to-gold brand system, the GSAP s
 
 <br/>
 
+## `02` — Preview
+
 <div align="center">
 
-<img src="public/screenshots/portfolio-desktop.jpg" width="100%" alt="Portfolio website — desktop" />
-
-<br/><br/>
-
-<img src="public/screenshots/portfolio-mobile.jpg" width="30%" alt="Portfolio website — mobile" />
+<img src="public/screenshots/portfolio-desktop.jpg" width="100%" alt="Portfolio website preview" />
 
 </div>
 
 <br/>
 
-## `02` — Stack
+## `03` — Stack
 
 <div align="center">
 
@@ -55,7 +53,7 @@ Every decision here is intentional: the crimson-to-gold brand system, the GSAP s
 
 <br/>
 
-## `03` — Features
+## `04` — Features
 
 ```
 ◆  Custom corner-bracket cursor — animates on every interaction state
@@ -74,7 +72,7 @@ Every decision here is intentional: the crimson-to-gold brand system, the GSAP s
 
 <br/>
 
-## `04` — Run Locally
+## `05` — Run Locally
 
 ```bash
 # Clone
@@ -93,7 +91,7 @@ npm run build
 
 <br/>
 
-## `05` — Structure
+## `06` — Structure
 
 ```
 portfolio/
