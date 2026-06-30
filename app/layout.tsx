@@ -27,6 +27,7 @@ const firaCode = Fira_Code({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://annas.host'),
   title: 'Anas Ben Ahmed — Designer & Developer',
   description:
     'Multidisciplinary developer and designer building for web, mobile, and desktop. Portfolio of Anas Ben Ahmed.',
@@ -38,6 +39,21 @@ export const metadata: Metadata = {
     url: 'https://annas.host',
     siteName: 'Anas Ben Ahmed',
     type: 'website',
+    locale: 'en_US',
+    images: [
+      {
+        url: '/og.png',
+        width: 1200,
+        height: 630,
+        alt: 'Anas Ben Ahmed — Full-Stack Developer & Designer',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Anas Ben Ahmed — Designer & Developer',
+    description: 'Graphic Designer · Web & Mobile Developer · Software Engineer',
+    images: ['/og.png'],
   },
 }
 
