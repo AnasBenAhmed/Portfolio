@@ -176,22 +176,25 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
         <div ref={mockupRef} className="flex flex-col gap-3 md:flex-row md:items-start">
 
           {/* Desktop frame — landscape, takes remaining width */}
+          {!project.hideDesktop && (
           <div
             ref={desktopFrameRef}
             className="w-full overflow-hidden border border-white/[0.08] md:flex-1"
             style={{ aspectRatio: '16/9', background: `${project.accentColor}06` }}
           >
-            <div className="flex h-8 items-center gap-1.5 border-b border-white/[0.08] bg-[#0e0e0e] px-3">
-              <div className="h-2 w-2 rounded-full bg-white/30" />
-              <div className="h-2 w-2 rounded-full bg-white/15" />
-              <div className="h-2 w-2 rounded-full bg-white/15" />
-              <div className="mx-3 flex h-4 flex-1 items-center rounded-sm border border-white/[0.08] bg-white/[0.03] px-2">
-                {project.domain && (
-                  <span className="font-fira text-[9px] text-white/30">{project.domain}</span>
-                )}
+            {!project.hideAddressBar && (
+              <div className="flex h-8 items-center gap-1.5 border-b border-white/[0.08] bg-[#0e0e0e] px-3">
+                <div className="h-2 w-2 rounded-full bg-white/30" />
+                <div className="h-2 w-2 rounded-full bg-white/15" />
+                <div className="h-2 w-2 rounded-full bg-white/15" />
+                <div className="mx-3 flex h-4 flex-1 items-center rounded-sm border border-white/[0.08] bg-white/[0.03] px-2">
+                  {project.domain && (
+                    <span className="font-fira text-[9px] text-white/30">{project.domain}</span>
+                  )}
+                </div>
               </div>
-            </div>
-            <div className="relative w-full" style={{ height: 'calc(100% - 2rem)' }}>
+            )}
+            <div className="relative w-full" style={{ height: project.hideAddressBar ? '100%' : 'calc(100% - 2rem)' }}>
               {project.screenshots?.desktop ? (
                 <Image
                   src={project.screenshots.desktop}
@@ -215,8 +218,10 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
               )}
             </div>
           </div>
+          )}
 
           {/* Mobile frame — portrait on mobile, synced height on desktop */}
+          {!project.hideMobile && (
           <div
             ref={mobileFrameRef}
             className="relative w-full shrink-0 overflow-hidden border border-white/[0.08] md:w-[22%]"
@@ -244,6 +249,7 @@ export default function ProjectDetailClient({ project, prev, next }: Props) {
               </div>
             )}
           </div>
+          )}
 
         </div>
       </div>

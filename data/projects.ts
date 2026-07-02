@@ -11,6 +11,12 @@ export interface Project {
   github?: string
   domain?: string
   screenshots?: { desktop?: string; mobile?: string }
+  /** Hide the fake browser address bar on the desktop mockup (e.g. non-web apps). */
+  hideAddressBar?: boolean
+  /** Hide the mobile mockup frame entirely (desktop frame takes full width). */
+  hideMobile?: boolean
+  /** Hide the desktop mockup frame entirely. */
+  hideDesktop?: boolean
 }
 
 export const projects: Project[] = [
@@ -118,20 +124,26 @@ export const projects: Project[] = [
     number: '05',
     title: 'IRIS — AI IMAGE GENERATOR',
     tech: 'C# · WPF · .NET',
-    techList: ['C#', 'WPF', '.NET', 'Hugging Face API', 'SDXL'],
-    description: 'A native Windows AI image generator built in C# and WPF — type a prompt, get a real Stable Diffusion XL image. Powered by the Hugging Face Inference API with a clean settings panel for API key management.',
-    longDescription: 'Iris is a native Windows desktop application for AI image generation, built entirely in C# with WPF. Under the hood it calls the Hugging Face Inference API running Stable Diffusion XL — the same model behind Fooocus — so every image is genuinely AI-generated from scratch, not fetched or searched. The UI is minimal and dark: a prompt field, style presets, a generate button, and a live image output panel. A settings page handles API key storage via Windows Credential Manager. Generated images are saved to a local gallery with export support.',
+    techList: ['C#', '.NET 8', 'WPF', 'CommunityToolkit.Mvvm', 'xUnit'],
+    description: 'A native Windows AI image generator built in C# and WPF — type a prompt, get a real AI image in seconds. Keyless, no account, no billing, with style presets, a local gallery, and prompt history.',
+    longDescription: 'Iris is a native Windows desktop application for AI image generation, built entirely in C# with WPF and MVVM. It generates real images through a keyless backend — no API key, no account, no billing — so it works the moment you open it. Type a prompt, pick a style preset (photorealistic, cinematic, anime, concept art, 3D), choose an aspect ratio, and generate — with seed control for reproducible results or fresh variations. Every generation is auto-saved to a local gallery with its prompt, style, and seed, and prompt history lets you re-run a past request in one click. All pure logic — the request builder, prompt composition, and the gallery/history stores — lives in a dependency-free core library, fully unit-tested.',
     features: [
-      'Real AI image generation via Hugging Face Inference API (SDXL)',
-      'Settings panel — API key input stored securely in Windows Credential Manager',
-      'Style presets — photorealistic, cinematic, anime, concept art',
-      'Prompt history — revisit and re-run previous generations',
-      'Local gallery — browse, save, and export generated images',
-      'Negative prompt support for fine-tuned results',
-      'Generation progress indicator with cancel support',
+      'Real AI image generation — keyless, no account, no billing',
+      'Style presets — photorealistic, cinematic, anime, concept art, 3D',
+      'Aspect presets — square, portrait, landscape',
+      'Seed control — lock a seed to reproduce, randomize for variations',
+      'Local gallery — every generation saved, browse, select, delete',
+      'Prompt history — one click to re-run a recent prompt',
+      'Save / export any result to disk',
       'Dark, minimal WPF UI — native Windows, no Electron',
     ],
     accentColor: '#E0A82E',
+    github: 'https://github.com/AnasBenAhmed/Iris',
+    screenshots: {
+      desktop: '/screenshots/iris-desktop.png',
+    },
+    hideAddressBar: true,
+    hideMobile: true,
   },
   {
     slug: 'chess',
